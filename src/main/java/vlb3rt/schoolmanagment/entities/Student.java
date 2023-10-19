@@ -6,24 +6,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Student")
+@Table(name = "student")
 public class Student {
 
     @Id
     @GeneratedValue()
-    private int studentId;
+    private Long studentId;
 
     private String name;
 
     private String lastName;
 
-    private int schoolClassId;
+    private Long schoolClassId;
 
-    public int getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 
@@ -43,11 +43,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public int getSchoolClassId() {
+    public Long getSchoolClassId() {
         return schoolClassId;
     }
 
-    public void setSchoolClassId(int schoolClassId) {
+    public void setSchoolClassId(Long schoolClassId) {
         this.schoolClassId = schoolClassId;
     }
 }

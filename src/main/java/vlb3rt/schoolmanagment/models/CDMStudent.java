@@ -2,20 +2,20 @@ package vlb3rt.schoolmanagment.models;
 
 public class CDMStudent {
 
-    private Long studentID;
+    private Long studentId;
 
     private String name;
 
     private String lastName;
 
-    private int schoolClassId;
+    private Long schoolClassId;
 
-    public Long getStudentID() {
-        return studentID;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public void setStudentID(Long studentID) {
-        this.studentID = studentID;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
     public String getName() {
@@ -34,11 +34,11 @@ public class CDMStudent {
         this.lastName = lastName;
     }
 
-    public int getSchoolClassId() {
+    public Long getSchoolClassId() {
         return schoolClassId;
     }
 
-    public void setSchoolClassId(int schoolClassId) {
+    public void setSchoolClassId(Long schoolClassId) {
         this.schoolClassId = schoolClassId;
     }
 }

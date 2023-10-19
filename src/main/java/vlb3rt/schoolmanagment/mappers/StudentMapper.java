@@ -13,6 +13,7 @@ public final class StudentMapper {
     public Student toEntityMapper(CDMStudent cdmStudent) {
         Student student = new Student();
 
+        student.setStudentId(cdmStudent.getStudentId());
         student.setName(cdmStudent.getName());
         student.setLastName(cdmStudent.getLastName());
         student.setSchoolClassId(student.getSchoolClassId());
@@ -23,7 +24,7 @@ public final class StudentMapper {
     public CDMStudent toCDMMapper(Student student) {
         CDMStudent cdmStudent = new CDMStudent();
 
-        cdmStudent.setStudentID(cdmStudent.getStudentID());
+        cdmStudent.setStudentId(cdmStudent.getStudentId());
         cdmStudent.setName(student.getName());
         cdmStudent.setLastName(student.getLastName());
         cdmStudent.setSchoolClassId(student.getSchoolClassId());
@@ -37,6 +38,7 @@ public final class StudentMapper {
         for (CDMStudent cdmStudent : cdmStudents) {
             Student student = new Student();
 
+            student.setStudentId(cdmStudent.getStudentId());
             student.setName(cdmStudent.getName());
             student.setLastName(cdmStudent.getLastName());
             student.setSchoolClassId(student.getSchoolClassId());
@@ -53,7 +55,7 @@ public final class StudentMapper {
         for (Student student : students) {
             CDMStudent cdmStudent = new CDMStudent();
 
-            cdmStudent.setStudentID(cdmStudent.getStudentID());
+            cdmStudent.setStudentId(cdmStudent.getStudentId());
             cdmStudent.setName(student.getName());
             cdmStudent.setLastName(student.getLastName());
             cdmStudent.setSchoolClassId(student.getSchoolClassId());
