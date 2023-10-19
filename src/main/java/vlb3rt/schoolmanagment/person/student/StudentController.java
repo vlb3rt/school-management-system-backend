@@ -27,5 +27,24 @@ public class StudentController {
         return studentService.readStudentById(studentId);
     }
 
+    @PutMapping(value = "/update")
+    public void updateStudent(
+            @RequestParam("studentId") Long studentId,
+            @RequestBody CDMStudent cdmStudent
+    ) {
+        studentService.updateStudent(studentId, cdmStudent);
+    }
+
+    @DeleteMapping(value = "/delete")
+    public void deleteStudent(
+            @RequestParam("studentId") Long studentId
+    ) {
+        studentService.deleteStudent(studentId);
+    }
+
+    @DeleteMapping(value = "/deleteAll")
+    public void deleteAllStudents() {
+        studentService.deleteAllStudents();
+    }
 
 }
