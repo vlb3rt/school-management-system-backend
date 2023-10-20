@@ -1,15 +1,18 @@
 package vlb3rt.schoolmanagment.mappers;
 
 import org.springframework.stereotype.Component;
+
 import vlb3rt.schoolmanagment.entities.ScienceClub;
+import vlb3rt.schoolmanagment.interfaces.MapperInterface;
 import vlb3rt.schoolmanagment.models.CDMScienceClub;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ScienceClubMapper {
+public class ScienceClubMapper implements MapperInterface<ScienceClub, CDMScienceClub> {
 
+    @Override
     public ScienceClub toEntityMapper(CDMScienceClub cdmScienceClub) {
         ScienceClub scienceClub = new ScienceClub();
 
@@ -21,6 +24,7 @@ public class ScienceClubMapper {
         return scienceClub;
     }
 
+    @Override
     public CDMScienceClub toCDMMapper(ScienceClub scienceClub) {
         CDMScienceClub cdmScienceClub = new CDMScienceClub();
 
@@ -32,6 +36,7 @@ public class ScienceClubMapper {
         return cdmScienceClub;
     }
 
+    @Override
     public List<ScienceClub> toEntityListMapper(List<CDMScienceClub> cdmScienceClubs) {
         List<ScienceClub> scienceClubs = new ArrayList<>();
 
@@ -49,6 +54,7 @@ public class ScienceClubMapper {
         return scienceClubs;
     }
 
+    @Override
     public List<CDMScienceClub> toCDMListMapper(List<ScienceClub> scienceClubs) {
         List<CDMScienceClub> cdmScienceClubs = new ArrayList<>();
 
@@ -65,5 +71,4 @@ public class ScienceClubMapper {
 
         return cdmScienceClubs;
     }
-
 }

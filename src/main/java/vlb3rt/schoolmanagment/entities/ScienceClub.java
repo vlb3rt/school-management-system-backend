@@ -5,9 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import vlb3rt.schoolmanagment.interfaces.EntityInterface;
+
 @Entity
 @Table(name = "science_club")
-public class ScienceClub {
+public class ScienceClub implements EntityInterface {
 
     @Id
     @GeneratedValue

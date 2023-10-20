@@ -1,6 +1,8 @@
 package vlb3rt.schoolmanagment.models;
 
-public class CDMScienceClub {
+import vlb3rt.schoolmanagment.interfaces.CDMInterface;
+
+public class CDMScienceClub implements CDMInterface {
 
     private Long scienceClubId;
 

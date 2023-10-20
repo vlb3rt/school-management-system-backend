@@ -1,6 +1,8 @@
 package vlb3rt.schoolmanagment.models;
 
-public class CDMTeacher {
+import vlb3rt.schoolmanagment.interfaces.CDMInterface;
+
+public class CDMTeacher implements CDMInterface {
 
     private Long teacherId;
 

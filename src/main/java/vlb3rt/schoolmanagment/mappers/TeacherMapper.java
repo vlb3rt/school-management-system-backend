@@ -1,6 +1,8 @@
 package vlb3rt.schoolmanagment.mappers;
 
 import org.springframework.stereotype.Component;
+
+import vlb3rt.schoolmanagment.interfaces.MapperInterface;
 import vlb3rt.schoolmanagment.models.CDMTeacher;
 import vlb3rt.schoolmanagment.entities.Teacher;
 
@@ -8,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class TeacherMapper {
+public class TeacherMapper implements MapperInterface<Teacher, CDMTeacher> {
 
+    @Override
     public Teacher toEntityMapper(CDMTeacher cdmTeacher) {
         Teacher teacher = new Teacher();
 
@@ -21,6 +24,7 @@ public class TeacherMapper {
         return teacher;
     }
 
+    @Override
     public CDMTeacher toCDMMapper(Teacher teacher) {
         CDMTeacher cdmTeacher = new CDMTeacher();
 
@@ -32,6 +36,7 @@ public class TeacherMapper {
         return cdmTeacher;
     }
 
+    @Override
     public List<Teacher> toEntityListMapper(List<CDMTeacher> cdmTeachers) {
         List<Teacher> teachers = new ArrayList<>();
 
@@ -49,6 +54,7 @@ public class TeacherMapper {
         return teachers;
     }
 
+    @Override
     public List<CDMTeacher> toCDMListMapper(List<Teacher> teachers) {
         List<CDMTeacher> cdmTeachers = new ArrayList<>();
 
@@ -65,5 +71,4 @@ public class TeacherMapper {
 
         return cdmTeachers;
     }
-
 }

@@ -1,6 +1,8 @@
 package vlb3rt.schoolmanagment.models;
 
-public class CDMSchoolClass {
+import vlb3rt.schoolmanagment.interfaces.CDMInterface;
+
+public class CDMSchoolClass implements CDMInterface {
 
     private Long schoolClassId;
 
