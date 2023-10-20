@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import vlb3rt.schoolmanagment.models.CDMStudent;
 
 @RestController
-@RequestMapping("person/student")
+@RequestMapping("/person/student")
 public class StudentController {
 
     private final StudentService studentService;

@@ -2,7 +2,6 @@ package vlb3rt.schoolmanagment.structure.schoolclass;
 
 import org.springframework.web.bind.annotation.*;
 import vlb3rt.schoolmanagment.models.CDMSchoolClass;
-import vlb3rt.schoolmanagment.models.CDMStudent;
 
 @RestController
 @RequestMapping("/structure/schoolclass")
