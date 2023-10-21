@@ -1,6 +1,7 @@
 package vlb3rt.schoolmanagment.person.student;
 
 import org.springframework.web.bind.annotation.*;
+import vlb3rt.schoolmanagment.exceptions.singleexceptions.EntityNotFoundException;
 import vlb3rt.schoolmanagment.models.CDMStudent;
 
 @RestController
@@ -13,6 +14,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    // POST endpoints
     @PostMapping(value = "/create")
     public void createStudent(
             @RequestBody CDMStudent cdmStudent
@@ -20,6 +22,7 @@ public class StudentController {
         studentService.createStudent(cdmStudent);
     }
 
+    // GET endpoints
     @GetMapping(value = "/read")
     public CDMStudent readStudent(
             @RequestParam Long studentId
@@ -27,6 +30,7 @@ public class StudentController {
         return studentService.readStudentById(studentId);
     }
 
+    // PUT endpoints
     @PutMapping(value = "/update")
     public void updateStudent(
             @RequestParam("studentId") Long studentId,
@@ -35,6 +39,7 @@ public class StudentController {
         studentService.updateStudent(studentId, cdmStudent);
     }
 
+    // DELETE endpoints
     @DeleteMapping(value = "/delete")
     public void deleteStudent(
             @RequestParam("studentId") Long studentId
@@ -44,7 +49,8 @@ public class StudentController {
 
     @DeleteMapping(value = "/deleteAll")
     public void deleteAllStudents() {
-        studentService.deleteAllStudents();
+        throw new EntityNotFoundException("WRONG");
+        //studentService.deleteAllStudents();
     }
 
 }
