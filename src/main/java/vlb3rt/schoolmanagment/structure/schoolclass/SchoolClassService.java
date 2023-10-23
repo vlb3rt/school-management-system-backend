@@ -2,7 +2,6 @@ package vlb3rt.schoolmanagment.structure.schoolclass;
 
 import org.springframework.stereotype.Service;
 
-import vlb3rt.schoolmanagment.entities.SchoolClass;
 import vlb3rt.schoolmanagment.mappers.SchoolClassMapper;
 import vlb3rt.schoolmanagment.models.CDMSchoolClass;
 
@@ -20,27 +19,43 @@ public class SchoolClassService {
         this.schoolClassRepository = schoolClassRepository;
     }
 
-    public void createSchoolClass(CDMSchoolClass cdmSchoolClass) {
-        schoolClassRepository.save(schoolClassMapper.toEntityMapper(cdmSchoolClass));
-    }
-
-    public CDMSchoolClass readSchoolClassById(Long schoolClassId) {
-        return schoolClassRepository.findById(schoolClassId)
-                .map(schoolClassMapper::toCDMMapper)
-                .orElse(null);
-    }
-
-    public void updateSchoolClass(Long schoolClassId, CDMSchoolClass cdmSchoolClass) {
-        Optional<SchoolClass> schoolClass = schoolClassRepository.findById(schoolClassId);
-        if(schoolClass.isPresent()) {
-            schoolClass = Optional.of(schoolClassMapper.toEntityMapper(cdmSchoolClass));
-            schoolClass.get().setSchoolClassId(schoolClassId);
-            schoolClassRepository.save(schoolClass.get());
+    /** DONE */
+    public Optional<CDMSchoolClass> createSchoolClass(CDMSchoolClass cdmSchoolClass) {
+        if (findSchoolClassByName(cdmSchoolClass.getName()).isEmpty()) {
+            return Optional.of(
+                    schoolClassMapper.toCDMMapper(
+                            schoolClassRepository.save(
+                                    schoolClassMapper.toEntityMapper(cdmSchoolClass))));
         }
+       return Optional.empty();
     }
 
-    public void deleteSchoolClass(Long schoolClassId) {
-        schoolClassRepository.deleteById(schoolClassId);
+    /** DONE */
+    public Optional<CDMSchoolClass> findSchoolClassByName(String name) {
+        return schoolClassRepository.findSchoolClassByName(name)
+                .map(schoolClassMapper::toCDMMapper);
+    }
+
+    /** DONE */
+    public Optional<CDMSchoolClass> findSchoolClassById(Long schoolClassId) {
+        return schoolClassRepository.findById(schoolClassId)
+                .map(schoolClassMapper::toCDMMapper);
+    }
+
+    /** DONE */
+    public Optional<CDMSchoolClass> updateSchoolClass(Long schoolClassId, CDMSchoolClass cdmSchoolClass) {
+        return findSchoolClassById(schoolClassId)
+                .map(schoolClass -> {
+                    cdmSchoolClass.setSchoolClassId(schoolClass.getSchoolClassId());
+                    schoolClassRepository.save(schoolClassMapper.toEntityMapper(cdmSchoolClass));
+                    return cdmSchoolClass;
+                });
+    }
+
+    /** DONE */
+    public Optional<CDMSchoolClass> deleteSchoolClassById(Long schoolClassId) {
+        return schoolClassRepository.deleteSchoolClassBySchoolClassId(schoolClassId)
+                .map(schoolClassMapper::toCDMMapper);
     }
 
     public void deleteAllSchoolClasses() {
