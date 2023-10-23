@@ -4,8 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vlb3rt.schoolmanagment.models.CDMSchoolClass;
-
-import java.util.Optional;
+import vlb3rt.schoolmanagment.models.CDMSchoolClasses;
 
 @RestController
 @RequestMapping("/structure/schoolclass")
@@ -17,7 +16,9 @@ public class SchoolClassController {
         this.schoolClassService = schoolClassService;
     }
 
-    /** DONE */
+    /**
+     * POST
+     * */
     @PostMapping(value = "/create")
     public ResponseEntity<CDMSchoolClass> createSchoolClass(
             @RequestBody CDMSchoolClass cdmSchoolClass
@@ -29,7 +30,9 @@ public class SchoolClassController {
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    /** DONE */
+    /**
+     * GET
+     * */
     @GetMapping(value = "/read")
     public ResponseEntity<CDMSchoolClass> readStudent(
             @RequestParam Long schoolClassId
@@ -41,7 +44,16 @@ public class SchoolClassController {
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    /** DONE */
+    @GetMapping(value = "/readAll")
+    public ResponseEntity<CDMSchoolClasses> readStudent(
+
+    ) {
+        return new ResponseEntity<>(schoolClassService.findAll(), HttpStatus.OK);
+    }
+
+    /**
+     *  PUT
+     *  */
     @PutMapping(value = "/update")
     public ResponseEntity<CDMSchoolClass> updateSchoolClass(
             @RequestParam("schoolClassId") Long schoolClassId,
@@ -54,25 +66,23 @@ public class SchoolClassController {
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    /** DONE */
+    /**
+     * DELETE
+     * */
     @DeleteMapping(value = "/delete")
     public ResponseEntity<CDMSchoolClass> deleteSchoolClass(
             @RequestParam("schoolClassId") Long schoolClassId
     ) {
-        return schoolClassService.deleteSchoolClassById(schoolClassId)
-                .map(model -> {
-                    return new ResponseEntity<CDMSchoolClass>(model, HttpStatus.OK);
-                })
-                .orElse(new ResponseEntity<>(new CDMSchoolClass(), HttpStatus.BAD_REQUEST));
-
+        schoolClassService.deleteSchoolClassById(schoolClassId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /** DONE */
+
     @DeleteMapping(value = "/deleteAll")
-    public void deleteAllSchoolClasses(
+    public ResponseEntity<CDMSchoolClass> deleteAllSchoolClasses(
 
     ) {
         schoolClassService.deleteAllSchoolClasses();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

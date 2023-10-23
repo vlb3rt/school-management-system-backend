@@ -2,9 +2,13 @@ package vlb3rt.schoolmanagment.structure.schoolclass;
 
 import org.springframework.stereotype.Service;
 
+import vlb3rt.schoolmanagment.entities.SchoolClass;
 import vlb3rt.schoolmanagment.mappers.SchoolClassMapper;
 import vlb3rt.schoolmanagment.models.CDMSchoolClass;
+import vlb3rt.schoolmanagment.models.CDMSchoolClasses;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,7 +40,14 @@ public class SchoolClassService {
                 .map(schoolClassMapper::toCDMMapper);
     }
 
-    /** DONE */
+    public CDMSchoolClasses findAll() {
+        List<SchoolClass> schoolClasses = new ArrayList<>();
+        schoolClassRepository.findAll().forEach(schoolClasses::add);
+        CDMSchoolClasses cdmSchoolClasses = new CDMSchoolClasses();
+        cdmSchoolClasses.setClasses(schoolClassMapper.toCDMListMapper(schoolClasses));
+        return cdmSchoolClasses;
+    }
+
     public Optional<CDMSchoolClass> findSchoolClassById(Long schoolClassId) {
         return schoolClassRepository.findById(schoolClassId)
                 .map(schoolClassMapper::toCDMMapper);
@@ -53,10 +64,10 @@ public class SchoolClassService {
     }
 
     /** DONE */
-    public Optional<CDMSchoolClass> deleteSchoolClassById(Long schoolClassId) {
-        return schoolClassRepository.deleteSchoolClassBySchoolClassId(schoolClassId)
-                .map(schoolClassMapper::toCDMMapper);
+    public void deleteSchoolClassById(Long schoolClassId) {
+        schoolClassRepository.deleteById(schoolClassId);
     }
+
 
     public void deleteAllSchoolClasses() {
         schoolClassRepository.deleteAll();
