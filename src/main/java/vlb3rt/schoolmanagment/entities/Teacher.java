@@ -15,6 +15,8 @@ public class Teacher implements EntityInterface {
     @GeneratedValue
     private Long teacherId;
 
+    private int personId;
+
     private String name;
 
     private String lastName;

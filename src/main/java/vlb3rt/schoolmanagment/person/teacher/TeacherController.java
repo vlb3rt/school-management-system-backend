@@ -1,7 +1,8 @@
 package vlb3rt.schoolmanagment.person.teacher;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vlb3rt.schoolmanagment.models.CDMStudent;
 import vlb3rt.schoolmanagment.models.CDMTeacher;
 
 @RestController
@@ -14,11 +15,18 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
 
+    /**
+     * POST
+     * */
     @PostMapping(value = "/create")
-    public void createTeacher(
+    public ResponseEntity<CDMTeacher> createTeacher(
             @RequestBody CDMTeacher cdmTeacher
     ) {
-        teacherService.createTeacher(cdmTeacher);
+        return teacherService.createTeacher(cdmTeacher)
+                .map(model -> {
+                    return new ResponseEntity<CDMTeacher>(model, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @GetMapping(value = "/read")

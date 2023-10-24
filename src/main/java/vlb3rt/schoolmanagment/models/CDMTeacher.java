@@ -6,6 +6,8 @@ public class CDMTeacher implements CDMInterface {
 
     private Long teacherId;
 
+    private int personId;
+
     private String name;
 
     private String lastName;
@@ -18,6 +20,14 @@ public class CDMTeacher implements CDMInterface {
 
     public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
     public String getName() {

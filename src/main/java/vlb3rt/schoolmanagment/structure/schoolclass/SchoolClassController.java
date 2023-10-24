@@ -34,7 +34,7 @@ public class SchoolClassController {
      * GET
      * */
     @GetMapping(value = "/read")
-    public ResponseEntity<CDMSchoolClass> readStudent(
+    public ResponseEntity<CDMSchoolClass> readSchoolClass(
             @RequestParam Long schoolClassId
     ) {
         return schoolClassService.findSchoolClassById(schoolClassId)
@@ -45,7 +45,7 @@ public class SchoolClassController {
     }
 
     @GetMapping(value = "/readAll")
-    public ResponseEntity<CDMSchoolClasses> readStudent(
+    public ResponseEntity<CDMSchoolClasses> readSchoolClass(
 
     ) {
         return new ResponseEntity<>(schoolClassService.findAll(), HttpStatus.OK);

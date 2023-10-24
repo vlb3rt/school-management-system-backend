@@ -1,7 +1,6 @@
 package vlb3rt.schoolmanagment.person.student;
 
 import org.springframework.web.bind.annotation.*;
-import vlb3rt.schoolmanagment.exceptions.singleexceptions.EntityNotFoundException;
 import vlb3rt.schoolmanagment.models.CDMStudent;
 
 @RestController
@@ -49,8 +48,7 @@ public class StudentController {
 
     @DeleteMapping(value = "/deleteAll")
     public void deleteAllStudents() {
-        throw new EntityNotFoundException("WRONG");
-        //studentService.deleteAllStudents();
+        
     }
 
 }

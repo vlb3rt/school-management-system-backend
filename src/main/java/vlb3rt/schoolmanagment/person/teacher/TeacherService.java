@@ -20,8 +20,19 @@ public class TeacherService {
         this.teacherRepository = teacherRepository;
     }
 
-    public void createTeacher(CDMTeacher cdmTeacher) {
-        teacherRepository.save(teacherMapper.toEntityMapper(cdmTeacher));
+    public Optional<CDMTeacher> createTeacher(CDMTeacher cdmTeacher) {
+        if(findSchoolClassByName(cdmTeacher.getPersonId()).isEmpty()) {
+            return Optional.of(
+                    teacherMapper.toCDMMapper(
+                            teacherRepository.save(
+                                    teacherMapper.toEntityMapper(cdmTeacher))));
+        }
+        return Optional.empty();
+    }
+
+    public Optional<CDMTeacher> findSchoolClassByName(int personId) {
+        return teacherRepository.findTeacherByPersonId(personId)
+                .map(teacherMapper::toCDMMapper);
     }
 
     public CDMTeacher readTeacherById(Long teacherId) {

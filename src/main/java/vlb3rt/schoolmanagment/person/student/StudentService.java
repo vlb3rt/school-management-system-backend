@@ -3,7 +3,6 @@ package vlb3rt.schoolmanagment.person.student;
 import org.springframework.stereotype.Service;
 
 import vlb3rt.schoolmanagment.entities.Student;
-import vlb3rt.schoolmanagment.exceptions.singleexceptions.EntityNotFoundException;
 import vlb3rt.schoolmanagment.mappers.StudentMapper;
 import vlb3rt.schoolmanagment.models.CDMStudent;
 
@@ -28,11 +27,7 @@ public class StudentService {
     public CDMStudent readStudentById(Long studentId) {
         Optional<Student> student = studentRepository.findById(studentId);
 
-        if(student.isEmpty()) {
-            throw new EntityNotFoundException("Student o podanym Id nie istnieje.");
-        } else {
-            return studentMapper.toCDMMapper(student.get());
-        }
+        return studentMapper.toCDMMapper(student.get());
     }
 
     public void updateStudent(Long studentId, CDMStudent cdmStudent) {
@@ -41,8 +36,6 @@ public class StudentService {
             student = Optional.of(studentMapper.toEntityMapper(cdmStudent));
             student.get().setStudentId(studentId);
             studentRepository.save(student.get());
-        } else {
-            throw new EntityNotFoundException("Student o podanym Id nie istnieje.");
         }
     }
 
