@@ -1,5 +1,6 @@
 package vlb3rt.schoolmanagment.mappers.person;
 
+import org.springframework.stereotype.Component;
 import vlb3rt.schoolmanagment.interfaces.MapperInterface;
 import vlb3rt.schoolmanagment.models.dto.person.student.StudentResponse;
 import vlb3rt.schoolmanagment.models.dto.person.student.StudentResponses;
@@ -8,6 +9,7 @@ import vlb3rt.schoolmanagment.models.entities.person.Student;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class StudentMapper implements MapperInterface<Student, StudentResponse, StudentResponses> {
 
     @Override
@@ -17,7 +19,14 @@ public class StudentMapper implements MapperInterface<Student, StudentResponse, 
 
     @Override
     public StudentResponse toResponseMapper(Student student) {
-        return null;
+        StudentResponse response = new StudentResponse();
+
+        response.setStudentId(student.getStudentId());
+        response.setName(student.getName());
+        response.setLastName(student.getLastName());
+        response.setSchoolClassId(student.getSchoolClass().getSchoolClassId());
+
+        return response;
     }
 
     @Override

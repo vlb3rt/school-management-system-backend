@@ -2,6 +2,7 @@ package vlb3rt.schoolmanagment.mappers.structure;
 
 import org.springframework.stereotype.Component;
 import vlb3rt.schoolmanagment.interfaces.MapperInterface;
+import vlb3rt.schoolmanagment.mappers.person.StudentMapper;
 import vlb3rt.schoolmanagment.mappers.person.TeacherMapper;
 import vlb3rt.schoolmanagment.models.dto.structure.schoolClass.SchoolClassResponse;
 import vlb3rt.schoolmanagment.models.dto.structure.schoolClass.SchoolClassResponses;
@@ -15,8 +16,11 @@ public class SchoolClassMapper implements MapperInterface<SchoolClass, SchoolCla
 
     private TeacherMapper teacherMapper;
 
-    public SchoolClassMapper(TeacherMapper teacherMapper) {
+    private StudentMapper studentMapper;
+
+    public SchoolClassMapper(TeacherMapper teacherMapper, StudentMapper studentMapper) {
         this.teacherMapper = teacherMapper;
+        this.studentMapper = studentMapper;
     }
 
     @Override
@@ -31,7 +35,11 @@ public class SchoolClassMapper implements MapperInterface<SchoolClass, SchoolCla
         schoolClassResponse.setSchoolClassId(schoolClass.getSchoolClassId());
         schoolClassResponse.setSchoolClassName(schoolClass.getSchoolClassName());
         schoolClassResponse.setTeacher(teacherMapper.toResponseMapper(schoolClass.getTeacher()));
-
+        schoolClassResponse.setStudents(
+                schoolClass.getStudents()
+                        .stream()
+                        .map(studentMapper::toResponseMapper)
+                        .collect(Collectors.toList()));
         return schoolClassResponse;
     }
 

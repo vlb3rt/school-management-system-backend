@@ -11,7 +11,37 @@ public class StudentResponse implements ResponseInterface {
 
     private String lastName;
 
-    private boolean isClassLeader;
+    private long schoolClassId;
 
+    public long getStudentId() {
+        return studentId;
+    }
 
+    public void setStudentId(long studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public long getSchoolClassId() {
+        return schoolClassId;
+    }
+
+    public void setSchoolClassId(long schoolClassId) {
+        this.schoolClassId = schoolClassId;
+    }
 }
