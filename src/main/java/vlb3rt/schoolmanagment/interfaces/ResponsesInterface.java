@@ -1,4 +1,4 @@
 package vlb3rt.schoolmanagment.interfaces;
 
-public interface EntityInterface {
+public interface ResponsesInterface {
 }

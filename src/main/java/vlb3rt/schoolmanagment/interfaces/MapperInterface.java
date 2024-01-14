@@ -2,13 +2,11 @@ package vlb3rt.schoolmanagment.interfaces;
 
 import java.util.List;
 
-public interface MapperInterface<E extends EntityInterface, C extends CDMInterface> {
+public interface MapperInterface <T extends EntityInterface, U extends ResponseInterface, W extends ResponsesInterface> {
 
-    E toEntityMapper(C c);
+    T toEntityMapper(U u);
 
-    C toCDMMapper(E e);
+    U toResponseMapper(T t);
 
-    List<E> toEntityListMapper(List<C> c);
-
-    List<C> toCDMListMapper(List<E> e);
+    W toResponseListMapper(List<T> t);
 }
