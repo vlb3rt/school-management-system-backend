@@ -16,6 +16,7 @@ public class SubjectMapper implements MapperInterface<Subject, SubjectResponse, 
     public Subject toEntityMapper(SubjectResponse subjectResponse) {
         Subject subject = new Subject();
 
+        subject.setSubjectId(subjectResponse.getSubjectId());
         subject.setName(subjectResponse.getSubjectName());
         subject.setShortName(subjectResponse.getSubjectShortName());
 
