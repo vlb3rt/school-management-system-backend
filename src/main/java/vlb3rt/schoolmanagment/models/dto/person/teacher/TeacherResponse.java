@@ -5,19 +5,21 @@ import vlb3rt.schoolmanagment.models.dto.value.subject.SubjectResponse;
 
 public class TeacherResponse implements ResponseInterface {
 
-    private long teacherId;
+    private Long teacherId;
 
     private String name;
 
     private String lastName;
 
+    private Long teacherIndex;
+
     private SubjectResponse mainSubject;
 
-    public long getTeacherId() {
+    public Long getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(long teacherId) {
+    public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
     }
 
@@ -35,6 +37,14 @@ public class TeacherResponse implements ResponseInterface {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Long getTeacherIndex() {
+        return teacherIndex;
+    }
+
+    public void setTeacherIndex(Long teacherIndex) {
+        this.teacherIndex = teacherIndex;
     }
 
     public SubjectResponse getMainSubject() {

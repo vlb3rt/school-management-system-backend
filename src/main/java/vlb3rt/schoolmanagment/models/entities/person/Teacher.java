@@ -1,5 +1,6 @@
 package vlb3rt.schoolmanagment.models.entities.person;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import vlb3rt.schoolmanagment.interfaces.EntityInterface;
 import vlb3rt.schoolmanagment.models.entities.value.Subject;
@@ -15,6 +16,8 @@ public class Teacher implements EntityInterface {
     private String name;
 
     private String lastName;
+
+    private Long teacherIndex;
 
     @ManyToOne
     @JoinColumn(name = "mainSubject")
@@ -42,6 +45,14 @@ public class Teacher implements EntityInterface {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Long getTeacherIndex() {
+        return teacherIndex;
+    }
+
+    public void setTeacherIndex(Long teacherIndex) {
+        this.teacherIndex = teacherIndex;
     }
 
     public Subject getMainSubject() {
