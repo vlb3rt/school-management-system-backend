@@ -11,6 +11,7 @@ import vlb3rt.schoolmanagment.services.person.TeacherService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SubjectService {
@@ -27,11 +28,10 @@ public class SubjectService {
         this.teacherService = teacherService;
     }
 
-    public SubjectResponse getSubject(long subjectId) throws EntityException {
+    public Optional<SubjectResponse> getSubject(long subjectId) throws EntityException {
         return subjectRepository
                 .findById(subjectId)
-                .map(subjectMapper::toResponseMapper)
-                .orElseThrow(() -> new EntityException("not found"));
+                .map(subjectMapper::toResponseMapper);
     }
 
     public SubjectResponses getAllSubjects() {
@@ -41,13 +41,14 @@ public class SubjectService {
     }
 
     public void createSubject(SubjectResponse subjectResponse) throws EntityException {
-        if(validateSubject(subjectResponse)) {
+        subjectResponse.setSubjectId(0);
+        if(createValidation(subjectResponse)) {
             subjectRepository.save(subjectMapper.toEntityMapper(subjectResponse));
         }
     }
 
     public void updateSubject(SubjectResponse subjectResponse) throws EntityException {
-        if(validateSubject(subjectResponse)) {
+        if(updateValidation(subjectResponse)) {
             subjectRepository.save(subjectMapper.toEntityMapper(subjectResponse));
         }
     }
@@ -58,30 +59,49 @@ public class SubjectService {
         }
     }
 
-    private boolean validateSubject(SubjectResponse subject) throws EntityException {
+    private boolean createValidation(SubjectResponse subject) throws EntityException {
         SubjectResponses subjects = getAllSubjects();
 
-        boolean nameExists = subjects.getSubjects()
-                .stream()
-                .anyMatch(subjectResponse -> subjectResponse.getSubjectName().equalsIgnoreCase(subject.getSubjectName()));
+        Optional<SubjectResponse> nameInUse = isSubjectNameUsed(subjects, subject.getSubjectName());
 
-        if(nameExists) {
-            throw new EntityException("subject named: " + subject.getSubjectName() + " already exists");
+        if(nameInUse.isPresent()) {
+            throw new EntityException("subject with name: " + subject.getSubjectName() + " already exists");
+        }
+        return true;
+    }
+
+    private boolean updateValidation(SubjectResponse subject) throws EntityException {
+        SubjectResponses subjects = getAllSubjects();
+
+        if(isSubjectIdUsed(subjects, subject.getSubjectId()).isEmpty()) {
+            throw new EntityException("subject with id: " + subject.getSubjectId() + " does not exist");
         }
 
-        if(subject.getSubjectId() != 0) {
-            boolean idExists = subjects.getSubjects()
-                    .stream()
-                    .anyMatch(subjectResponse -> subjectResponse.getSubjectId() == subject.getSubjectId());
+        Optional<SubjectResponse> nameInUse = isSubjectNameUsed(subjects, subject.getSubjectName());
 
-            if(!idExists) {
-                throw new EntityException("subject with id: " + subject.getSubjectId() + " does not exist");
+        if(nameInUse.isPresent()) {
+            if(nameInUse.get().getSubjectId() != subject.getSubjectId()) {
+                throw new EntityException("subject with name: " + subject.getSubjectName() + " already exists");
             }
-
-            return true;
-        } else {
-            return true;
         }
+        return true;
+    }
+
+    private Optional<SubjectResponse> isSubjectIdUsed(SubjectResponses subjectResponses, long subjectId) {
+        return subjectResponses.getSubjects()
+                .stream()
+                .filter(subjectResponse -> subjectResponse.getSubjectId() == subjectId)
+                .findFirst();
+    }
+
+    private Optional<SubjectResponse> isSubjectNameUsed(SubjectResponses subjectResponses, String subjectName) throws EntityException {
+        if(subjectName == null || subjectName.isEmpty() || subjectName.isBlank()) {
+            throw new EntityException("subjectName can not be null, empty nor blank");
+        }
+        return subjectResponses.getSubjects()
+                .stream()
+                .filter(subjectResponse -> subjectResponse.getSubjectName().equalsIgnoreCase(subjectName))
+                .findFirst();
     }
 
     private boolean isSubjectUsed(long subjectId) throws EntityException {
