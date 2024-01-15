@@ -1,4 +1,4 @@
-package vlb3rt.schoolmanagment_alfa;
+package vlb3rt.schoolmanagment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

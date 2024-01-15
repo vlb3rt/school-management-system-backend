@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SchoolClassResponse implements ResponseInterface {
 
-    private long schoolClassId;
+    private Long schoolClassId;
 
     private String schoolClassName;
 
@@ -16,11 +16,11 @@ public class SchoolClassResponse implements ResponseInterface {
 
     private List<StudentResponse> students;
 
-    public long getSchoolClassId() {
+    public Long getSchoolClassId() {
         return schoolClassId;
     }
 
-    public void setSchoolClassId(long schoolClassId) {
+    public void setSchoolClassId(Long schoolClassId) {
         this.schoolClassId = schoolClassId;
     }
 
