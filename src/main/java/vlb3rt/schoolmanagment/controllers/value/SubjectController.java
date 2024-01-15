@@ -20,7 +20,7 @@ public class SubjectController {
 
     /** GET methods*/
     @GetMapping("/getSubject")
-    public ResponseEntity<?> getSubject(@RequestParam(name = "subjectId") long subjectId) {
+    public ResponseEntity<?> getSubject(@RequestParam(name = "subjectId") Long subjectId) {
         try {
             return new ResponseEntity<>(subjectService.getSubject(subjectId), HttpStatusCode.valueOf(200));
         } catch (EntityException e) {
@@ -57,7 +57,7 @@ public class SubjectController {
 
     /** DELETE methods */
     @DeleteMapping("/delete")
-    public ResponseEntity<String> update(@RequestParam("subjectId") long subjectId) {
+    public ResponseEntity<String> update(@RequestParam("subjectId") Long subjectId) {
         try {
             subjectService.deleteSubject(subjectId);
             return new ResponseEntity<>(HttpStatusCode.valueOf(200));

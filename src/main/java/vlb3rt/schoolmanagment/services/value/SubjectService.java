@@ -1,13 +1,14 @@
 package vlb3rt.schoolmanagment.services.value;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
 import vlb3rt.schoolmanagment.models.dto.value.subject.SubjectResponse;
 import vlb3rt.schoolmanagment.models.dto.value.subject.SubjectResponses;
 import vlb3rt.schoolmanagment.mappers.value.SubjectMapper;
 import vlb3rt.schoolmanagment.models.entities.value.Subject;
 import vlb3rt.schoolmanagment.repositories.value.SubjectRepository;
 import vlb3rt.schoolmanagment.responses.exceptions.EntityException;
-import vlb3rt.schoolmanagment.services.person.TeacherService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,18 +21,22 @@ public class SubjectService {
 
     private final SubjectMapper subjectMapper;
 
-    private final TeacherService teacherService;
-
-    public SubjectService(SubjectRepository subjectRepository, SubjectMapper subjectMapper, TeacherService teacherService) {
+    public SubjectService(SubjectRepository subjectRepository, SubjectMapper subjectMapper) {
         this.subjectRepository = subjectRepository;
         this.subjectMapper = subjectMapper;
-        this.teacherService = teacherService;
     }
 
-    public Optional<SubjectResponse> getSubject(long subjectId) throws EntityException {
+    public SubjectResponse getSubject(Long subjectId) throws EntityException {
         return subjectRepository
                 .findById(subjectId)
-                .map(subjectMapper::toResponseMapper);
+                .map(subjectMapper::toResponseMapper)
+                .orElseThrow(() -> new EntityException("not found"));
+    }
+
+    public Subject getSubjectEntity(Long subjectId) throws EntityException {
+        return subjectRepository
+                .findById(subjectId)
+                .orElseThrow(() -> new EntityException("not found"));
     }
 
     public SubjectResponses getAllSubjects() {
@@ -41,7 +46,7 @@ public class SubjectService {
     }
 
     public void createSubject(SubjectResponse subjectResponse) throws EntityException {
-        subjectResponse.setSubjectId(0);
+        subjectResponse.setSubjectId(0L);
         if(createValidation(subjectResponse)) {
             subjectRepository.save(subjectMapper.toEntityMapper(subjectResponse));
         }
@@ -53,9 +58,11 @@ public class SubjectService {
         }
     }
 
-    public void deleteSubject(long subjectId) throws EntityException {
-        if(isSubjectUsed(subjectId)) {
+    public void deleteSubject(Long subjectId) throws EntityException {
+        try {
             subjectRepository.deleteById(subjectId);
+        } catch (DataIntegrityViolationException e) {
+            throw new EntityException(e.getMessage());
         }
     }
 
@@ -80,17 +87,17 @@ public class SubjectService {
         Optional<SubjectResponse> nameInUse = isSubjectNameUsed(subjects, subject.getSubjectName());
 
         if(nameInUse.isPresent()) {
-            if(nameInUse.get().getSubjectId() != subject.getSubjectId()) {
+            if(nameInUse.get().getSubjectId().longValue() != subject.getSubjectId()) {
                 throw new EntityException("subject with name: " + subject.getSubjectName() + " already exists");
             }
         }
         return true;
     }
 
-    private Optional<SubjectResponse> isSubjectIdUsed(SubjectResponses subjectResponses, long subjectId) {
+    private Optional<SubjectResponse> isSubjectIdUsed(SubjectResponses subjectResponses, Long subjectId) {
         return subjectResponses.getSubjects()
                 .stream()
-                .filter(subjectResponse -> subjectResponse.getSubjectId() == subjectId)
+                .filter(subjectResponse -> subjectResponse.getSubjectId().longValue() == subjectId)
                 .findFirst();
     }
 
@@ -102,17 +109,5 @@ public class SubjectService {
                 .stream()
                 .filter(subjectResponse -> subjectResponse.getSubjectName().equalsIgnoreCase(subjectName))
                 .findFirst();
-    }
-
-    private boolean isSubjectUsed(long subjectId) throws EntityException {
-        boolean subjectInUse =  teacherService.getAllTeachers()
-                .getTeachers()
-                .stream()
-                .anyMatch(teacherResponse -> teacherResponse.getMainSubject().getSubjectId() == subjectId);
-
-        if (subjectInUse) {
-            throw new EntityException("subject with id: " + subjectId + " references other tables");
-        }
-        return true;
     }
 }

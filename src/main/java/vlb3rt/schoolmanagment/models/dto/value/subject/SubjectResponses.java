@@ -5,7 +5,7 @@ import vlb3rt.schoolmanagment.interfaces.ResponsesInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectResponses implements ResponsesInterface {
+public class SubjectResponses {
 
     private List<SubjectResponse> subjects = new ArrayList<>();
 

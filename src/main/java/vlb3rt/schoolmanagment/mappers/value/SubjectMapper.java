@@ -10,9 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class SubjectMapper implements MapperInterface<Subject, SubjectResponse, SubjectResponses> {
+public class SubjectMapper {
 
-    @Override
     public Subject toEntityMapper(SubjectResponse subjectResponse) {
         Subject subject = new Subject();
 
@@ -23,7 +22,6 @@ public class SubjectMapper implements MapperInterface<Subject, SubjectResponse, 
         return subject;
     }
 
-    @Override
     public SubjectResponse toResponseMapper(Subject subject) {
         SubjectResponse response = new SubjectResponse();
 
@@ -34,7 +32,6 @@ public class SubjectMapper implements MapperInterface<Subject, SubjectResponse, 
         return response;
     }
 
-    @Override
     public SubjectResponses toResponseListMapper(List<Subject> subjects) {
         List<SubjectResponse> responses = new ArrayList<>();
 

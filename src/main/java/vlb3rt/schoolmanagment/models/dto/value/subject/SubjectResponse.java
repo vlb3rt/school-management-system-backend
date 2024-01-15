@@ -2,19 +2,19 @@ package vlb3rt.schoolmanagment.models.dto.value.subject;
 
 import vlb3rt.schoolmanagment.interfaces.ResponseInterface;
 
-public class SubjectResponse implements ResponseInterface {
+public class SubjectResponse {
 
-    private long subjectId;
+    private Long subjectId;
 
     private String subjectName;
 
     private String subjectShortName;
 
-    public long getSubjectId() {
+    public Long getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(long subjectId) {
+    public void setSubjectId(Long subjectId) {
         this.subjectId = subjectId;
     }
 
