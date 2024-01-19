@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import vlb3rt.schoolmanagment.interfaces.EntityInterface;
 import vlb3rt.schoolmanagment.models.entities.structure.SchoolClass;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "student")
-public class Student implements EntityInterface {
+public class Student implements Serializable {
 
     @Id
     @GeneratedValue
@@ -15,6 +17,8 @@ public class Student implements EntityInterface {
     private String name;
 
     private String lastName;
+
+    private Long studentIndex;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_class_id")
@@ -42,6 +46,14 @@ public class Student implements EntityInterface {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Long getStudentIndex() {
+        return studentIndex;
+    }
+
+    public void setStudentIndex(Long studentIndex) {
+        this.studentIndex = studentIndex;
     }
 
     public SchoolClass getSchoolClass() {

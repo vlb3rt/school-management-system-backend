@@ -30,7 +30,7 @@ public class SubjectService {
         return subjectRepository
                 .findById(subjectId)
                 .map(subjectMapper::toResponseMapper)
-                .orElseThrow(() -> new EntityException("not found"));
+                .orElseThrow(() -> new EntityException(""));
     }
 
     public Subject getSubjectEntity(Long subjectId) throws EntityException {

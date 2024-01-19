@@ -21,7 +21,7 @@ public class SchoolClass implements EntityInterface {
     @JoinColumn(name = "teacherId")
     private Teacher teacher;
 
-    @OneToMany(mappedBy = "schoolClass", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "schoolClass")
     private List<Student> students;
 
     public Long getSchoolClassId() {

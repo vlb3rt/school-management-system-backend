@@ -73,7 +73,7 @@ public class TeacherService {
         Optional<TeacherResponse> indexInUse = isTeacherIndexUsed(teachers, teacher.getTeacherIndex());
 
         if(indexInUse.isPresent()) {
-            throw new EntityException("teacher with name: " + teacher.getTeacherIndex() + " already exists");
+            throw new EntityException("teacher with index: " + teacher.getTeacherIndex() + " already exists");
         }
         return true;
     }
