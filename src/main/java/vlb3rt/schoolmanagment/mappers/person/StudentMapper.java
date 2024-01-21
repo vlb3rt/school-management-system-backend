@@ -1,10 +1,13 @@
 package vlb3rt.schoolmanagment.mappers.person;
 
 import org.springframework.stereotype.Component;
-import vlb3rt.schoolmanagment.interfaces.MapperInterface;
+import vlb3rt.schoolmanagment.mappers.structure.SchoolClassMapper;
 import vlb3rt.schoolmanagment.models.dto.person.student.StudentResponse;
 import vlb3rt.schoolmanagment.models.dto.person.student.StudentResponses;
 import vlb3rt.schoolmanagment.models.entities.person.Student;
+import vlb3rt.schoolmanagment.models.entities.structure.SchoolClass;
+import vlb3rt.schoolmanagment.responses.exceptions.EntityException;
+import vlb3rt.schoolmanagment.services.structure.SchoolClassService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +16,16 @@ import java.util.stream.Collectors;
 @Component
 public class StudentMapper {
 
-    public Student toEntityMapper(StudentResponse studentResponse)  {
-        return null;
+    public Student toEntityMapper(StudentResponse studentResponse, SchoolClass schoolClass) throws EntityException {
+        Student student = new Student();
+
+        student.setStudentId(studentResponse.getStudentId());
+        student.setName(studentResponse.getName());
+        student.setLastName(studentResponse.getLastName());
+        student.setStudentIndex(studentResponse.getStudentIndex());
+        student.setSchoolClass(schoolClass);
+
+        return student;
     }
 
     public StudentResponse toResponseMapper(Student student) {
@@ -36,13 +47,5 @@ public class StudentMapper {
                         .stream()
                         .map(this::toResponseMapper)
                         .collect(Collectors.toList()));
-    }
-
-    public List<Student> toEntityListMapper(List<StudentResponse> studetsList) {
-        List<Student> students = new ArrayList<>();
-        for (StudentResponse student : studetsList) {
-            students.add(toEntityMapper(student));
-        }
-        return  students;
     }
 }

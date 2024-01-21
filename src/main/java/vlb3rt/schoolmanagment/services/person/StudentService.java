@@ -5,16 +5,13 @@ import org.springframework.stereotype.Service;
 import vlb3rt.schoolmanagment.mappers.person.StudentMapper;
 import vlb3rt.schoolmanagment.models.dto.person.student.StudentResponse;
 import vlb3rt.schoolmanagment.models.dto.person.student.StudentResponses;
-import vlb3rt.schoolmanagment.models.dto.person.teacher.TeacherResponse;
-import vlb3rt.schoolmanagment.models.dto.person.teacher.TeacherResponses;
 import vlb3rt.schoolmanagment.models.entities.person.Student;
-import vlb3rt.schoolmanagment.models.entities.person.Teacher;
 import vlb3rt.schoolmanagment.repositories.person.StudentRepository;
 import vlb3rt.schoolmanagment.responses.exceptions.EntityException;
+import vlb3rt.schoolmanagment.services.structure.SchoolClassService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -24,9 +21,12 @@ public class StudentService {
 
     private final StudentMapper studentMapper;
 
-    public StudentService(StudentRepository studentRepository, StudentMapper studentMapper) {
+    private final SchoolClassService schoolClassService;
+
+    public StudentService(StudentRepository studentRepository, StudentMapper studentMapper, SchoolClassService schoolClassService) {
         this.studentRepository = studentRepository;
         this.studentMapper = studentMapper;
+        this.schoolClassService = schoolClassService;
     }
 
     public StudentResponse getStudent(long studentId) throws EntityException {
@@ -49,15 +49,16 @@ public class StudentService {
     }
 
     public void createStudent(StudentResponse studentResponse) throws EntityException {
+        System.out.println(studentResponse);
         studentResponse.setStudentId(null);
         if(createValidation(studentResponse)) {
-            studentRepository.save(studentMapper.toEntityMapper(studentResponse));
+            studentRepository.save(studentMapper.toEntityMapper(studentResponse, schoolClassService.getSchoolClassEntity(studentResponse.getSchoolClassId())));
         }
     }
 
     public void updateStudent(StudentResponse studentResponse) throws EntityException {
         if(updateValidation(studentResponse)) {
-            studentRepository.save(studentMapper.toEntityMapper(studentResponse));
+            studentRepository.save(studentMapper.toEntityMapper(studentResponse, schoolClassService.getSchoolClassEntity(studentResponse.getSchoolClassId())));
         }
     }
 
