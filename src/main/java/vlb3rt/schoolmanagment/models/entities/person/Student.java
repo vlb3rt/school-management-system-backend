@@ -1,7 +1,6 @@
 package vlb3rt.schoolmanagment.models.entities.person;
 
 import jakarta.persistence.*;
-import vlb3rt.schoolmanagment.interfaces.EntityInterface;
 import vlb3rt.schoolmanagment.models.entities.structure.SchoolClass;
 
 import java.io.Serializable;

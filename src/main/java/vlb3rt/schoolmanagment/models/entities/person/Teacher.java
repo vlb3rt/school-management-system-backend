@@ -1,13 +1,11 @@
 package vlb3rt.schoolmanagment.models.entities.person;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import vlb3rt.schoolmanagment.interfaces.EntityInterface;
 import vlb3rt.schoolmanagment.models.entities.value.Subject;
 
 @Entity
 @Table(name = "teacher")
-public class Teacher implements EntityInterface {
+public class Teacher {
 
     @Id
     @GeneratedValue

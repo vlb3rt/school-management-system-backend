@@ -1,7 +1,6 @@
 package vlb3rt.schoolmanagment.mappers.value;
 
 import org.springframework.stereotype.Component;
-import vlb3rt.schoolmanagment.interfaces.MapperInterface;
 import vlb3rt.schoolmanagment.models.dto.value.subject.SubjectResponse;
 import vlb3rt.schoolmanagment.models.dto.value.subject.SubjectResponses;
 import vlb3rt.schoolmanagment.models.entities.value.Subject;

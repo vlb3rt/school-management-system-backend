@@ -1,11 +1,9 @@
 package vlb3rt.schoolmanagment.models.dto.person.student;
 
-import vlb3rt.schoolmanagment.interfaces.ResponsesInterface;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentResponses implements ResponsesInterface {
+public class StudentResponses {
 
     private List<StudentResponse> students = new ArrayList<>();
 

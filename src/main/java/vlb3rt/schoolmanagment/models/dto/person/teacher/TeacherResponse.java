@@ -1,9 +1,8 @@
 package vlb3rt.schoolmanagment.models.dto.person.teacher;
 
-import vlb3rt.schoolmanagment.interfaces.ResponseInterface;
 import vlb3rt.schoolmanagment.models.dto.value.subject.SubjectResponse;
 
-public class TeacherResponse implements ResponseInterface {
+public class TeacherResponse {
 
     private Long teacherId;
 

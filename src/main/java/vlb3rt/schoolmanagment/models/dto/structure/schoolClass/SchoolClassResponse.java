@@ -1,12 +1,11 @@
 package vlb3rt.schoolmanagment.models.dto.structure.schoolClass;
 
-import vlb3rt.schoolmanagment.interfaces.ResponseInterface;
 import vlb3rt.schoolmanagment.models.dto.person.student.StudentResponse;
 import vlb3rt.schoolmanagment.models.dto.person.teacher.TeacherResponse;
 
 import java.util.List;
 
-public class SchoolClassResponse implements ResponseInterface {
+public class SchoolClassResponse {
 
     private Long schoolClassId;
 

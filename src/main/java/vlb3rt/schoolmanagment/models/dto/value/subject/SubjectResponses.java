@@ -1,7 +1,5 @@
 package vlb3rt.schoolmanagment.models.dto.value.subject;
 
-import vlb3rt.schoolmanagment.interfaces.ResponsesInterface;
-
 import java.util.ArrayList;
 import java.util.List;
 

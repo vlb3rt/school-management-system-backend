@@ -1,7 +1,6 @@
 package vlb3rt.schoolmanagment.models.entities.structure;
 
 import jakarta.persistence.*;
-import vlb3rt.schoolmanagment.interfaces.EntityInterface;
 import vlb3rt.schoolmanagment.models.entities.person.Student;
 import vlb3rt.schoolmanagment.models.entities.person.Teacher;
 
@@ -9,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "class")
-public class SchoolClass implements EntityInterface {
+public class SchoolClass {
 
     @Id
     @GeneratedValue

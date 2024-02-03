@@ -1,9 +1,6 @@
 package vlb3rt.schoolmanagment.models.dto.person.student;
 
-import vlb3rt.schoolmanagment.interfaces.ResponseInterface;
-import vlb3rt.schoolmanagment.models.entities.structure.SchoolClass;
-
-public class StudentResponse implements ResponseInterface {
+public class StudentResponse {
 
     private Long studentId;
 

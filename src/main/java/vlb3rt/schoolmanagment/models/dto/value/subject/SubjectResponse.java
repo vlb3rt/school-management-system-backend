@@ -1,7 +1,5 @@
 package vlb3rt.schoolmanagment.models.dto.value.subject;
 
-import vlb3rt.schoolmanagment.interfaces.ResponseInterface;
-
 public class SubjectResponse {
 
     private Long subjectId;
